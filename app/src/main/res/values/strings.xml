@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My study</string>
+    <string name="text_success">success</string>
+    <string name="text_fail">fail</string>
+
+    <string name="ticker_last">현재가</string>
+    <string name="ticker_first">전일가</string>
+    <string name="ticker_rate_before">전일대비</string>
+    <string name="ticker_high">고가</string>
+    <string name="ticker_low">저가</string>
+    <string name="ticker_volume">거래량</string>
+</resources>
