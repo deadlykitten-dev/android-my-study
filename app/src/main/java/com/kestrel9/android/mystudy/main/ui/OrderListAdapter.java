@@ -25,9 +25,7 @@ public class OrderListAdapter extends BaseAdapter<TradesResponse.CompleteOrder> 
 
     @Override
     protected View createView(Context context, ViewGroup viewGroup, int viewType) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.row_order, viewGroup, false);
-        return view;
+        return LayoutInflater.from(context).inflate(R.layout.row_order, viewGroup, false);
     }
 
     @Override

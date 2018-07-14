@@ -3,8 +3,6 @@ package com.kestrel9.android.mystudy.main;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.kestrel9.android.mystudy.R;
@@ -19,8 +17,6 @@ import com.kestrel9.android.mystudy.network.response.TradesResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.kestrel9.android.mystudy.databinding.ContentTickerBinding;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
@@ -42,33 +38,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-
-        RecyclerView askRecyclerView = findViewById(R.id.recycler_ask);
-        askRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
         askListAdapter = new AskListAdapter(this);
         askListAdapter.setList(askList);
 
-        askRecyclerView.setAdapter(askListAdapter);
-
-        RecyclerView bidRecyclerView = findViewById(R.id.recycler_bid);
-        bidRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mainBinding.recyclerAsk.setAdapter(askListAdapter);
 
         bidListAdapter = new BidListAdapter(this);
         bidListAdapter.setList(bidList);
 
-        bidRecyclerView.setAdapter(bidListAdapter);
-
-        RecyclerView orderRecyclerView = findViewById(R.id.recycler_order);
-        orderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mainBinding.recyclerBid.setAdapter(bidListAdapter);
 
         orderListAdapter = new OrderListAdapter(this);
         orderListAdapter.setList(orderList);
 
-        orderRecyclerView.setAdapter(orderListAdapter);
-
-
+        mainBinding.recyclerOrder.setAdapter(orderListAdapter);
 
         presenter = new MainPresenter(CoinoneApi.CoinoneApiService.retrofit.create(CoinoneApi.CoinoneApiService.class), this);
 
@@ -79,18 +62,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void addBidRow(OrderbookResponse.Bid bid) {
-        bidList.add(bid);
+    public void addBidList(List<OrderbookResponse.Bid> bid) {
+        bidListAdapter.setList(bid);
+        bidListAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void addAskRow(OrderbookResponse.Ask ask) {
-        askList.add(ask);
+    public void addAskList(List<OrderbookResponse.Ask> ask) {
+        askListAdapter.setList(ask);
+        askListAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void addOrderRow(TradesResponse.CompleteOrder order) {
-        orderList.add(order);
+    public void addOrderList(List<TradesResponse.CompleteOrder> order) {
+        orderListAdapter.setList(order);
+        orderListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -101,12 +87,5 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void showFailLoad() {
         Toast.makeText(this, getString(R.string.text_fail), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void notifyListView() {
-        bidListAdapter.notifyDataSetChanged();
-        askListAdapter.notifyDataSetChanged();
-        orderListAdapter.notifyDataSetChanged();
     }
 }

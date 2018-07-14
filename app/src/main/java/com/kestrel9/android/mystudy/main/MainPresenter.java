@@ -34,21 +34,12 @@ public class MainPresenter implements MainContract.Presenter {
         orderbookResponseCall.enqueue(new Callback<OrderbookResponse>() {
             @Override
             public void onResponse(Call<OrderbookResponse> call, Response<OrderbookResponse> response) {
-                if (response.body() == null) return;
                 OrderbookResponse orderbookResponse = response.body();
                 if (orderbookResponse == null) return;
                 if (orderbookResponse.result.equals("success")) {
-
-                    for (OrderbookResponse.Ask ask:
-                            orderbookResponse.ask) {
-                        view.addAskRow(ask);
-                    }
-                    for (OrderbookResponse.Bid bid:
-                            orderbookResponse.bid) {
-                        view.addBidRow(bid);
-                    }
+                    view.addAskList(orderbookResponse.ask);
+                    view.addBidList(orderbookResponse.bid);
                 }
-                view.notifyListView();
             }
 
             @Override
@@ -62,16 +53,11 @@ public class MainPresenter implements MainContract.Presenter {
         tradesResponseCall.enqueue(new Callback<TradesResponse>() {
             @Override
             public void onResponse(Call<TradesResponse> call, Response<TradesResponse> response) {
-                if (response.body() == null) return;
                 TradesResponse tradesResponse = response.body();
                 if (tradesResponse == null) return;
-                if (tradesResponse.result.equals("success")){
-                    for (TradesResponse.CompleteOrder order:
-                            tradesResponse.completeOrders){
-                        view.addOrderRow(order);
-                    }
+                if (tradesResponse.result.equals("success")) {
+                    view.addOrderList(tradesResponse.completeOrders);
                 }
-                view.notifyListView();
             }
 
             @Override
@@ -85,13 +71,11 @@ public class MainPresenter implements MainContract.Presenter {
         tickerResponseCall.enqueue(new Callback<TickerResponse>() {
             @Override
             public void onResponse(Call<TickerResponse> call, Response<TickerResponse> response) {
-                if (response.body() == null) return;
                 TickerResponse tickerResponse = response.body();
                 if (tickerResponse == null) return;
                 if (tickerResponse.result.equals("success")){
                     view.setTickerView(tickerResponse);
                 }
-                view.notifyListView();
             }
 
             @Override

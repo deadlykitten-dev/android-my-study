@@ -4,6 +4,8 @@ import com.kestrel9.android.mystudy.network.response.OrderbookResponse;
 import com.kestrel9.android.mystudy.network.response.TickerResponse;
 import com.kestrel9.android.mystudy.network.response.TradesResponse;
 
+import java.util.List;
+
 /**
  * Mystudy
  * Class: MainContract
@@ -14,17 +16,15 @@ import com.kestrel9.android.mystudy.network.response.TradesResponse;
 public interface MainContract {
     interface View{
 
-        void addBidRow(OrderbookResponse.Bid bid);
+        void addBidList(List<OrderbookResponse.Bid> bid);
 
-        void addAskRow(OrderbookResponse.Ask ask);
+        void addAskList(List<OrderbookResponse.Ask> ask);
 
-        void addOrderRow(TradesResponse.CompleteOrder order);
+        void addOrderList(List<TradesResponse.CompleteOrder> order);
 
         void setTickerView(TickerResponse ticker);
 
         void showFailLoad();
-
-        void notifyListView();
     }
 
     interface Presenter{
