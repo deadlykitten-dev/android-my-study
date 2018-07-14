@@ -15,7 +15,6 @@ import com.kestrel9.android.mystudy.network.response.OrderbookResponse;
 import com.kestrel9.android.mystudy.network.response.TickerResponse;
 import com.kestrel9.android.mystudy.network.response.TradesResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
@@ -28,36 +27,22 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private ActivityMainBinding mainBinding;
 
-
-    private List<OrderbookResponse.Bid> bidList = new ArrayList<>();
-    private List<OrderbookResponse.Ask> askList = new ArrayList<>();
-    private List<TradesResponse.CompleteOrder> orderList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         askListAdapter = new AskListAdapter(this);
-        askListAdapter.setList(askList);
+        bidListAdapter = new BidListAdapter(this);
+        orderListAdapter = new OrderListAdapter(this);
 
         mainBinding.recyclerAsk.setAdapter(askListAdapter);
-
-        bidListAdapter = new BidListAdapter(this);
-        bidListAdapter.setList(bidList);
-
         mainBinding.recyclerBid.setAdapter(bidListAdapter);
-
-        orderListAdapter = new OrderListAdapter(this);
-        orderListAdapter.setList(orderList);
-
         mainBinding.recyclerOrder.setAdapter(orderListAdapter);
 
         presenter = new MainPresenter(CoinoneApi.CoinoneApiService.retrofit.create(CoinoneApi.CoinoneApiService.class), this);
 
         presenter.loadApiData();
-
-
 
     }
 

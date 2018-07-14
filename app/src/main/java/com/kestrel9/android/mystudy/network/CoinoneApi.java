@@ -19,7 +19,6 @@ import retrofit2.http.GET;
 public class CoinoneApi {
     private static final String BASE_URL = "https://api.coinone.co.kr/";
 
-
     public interface CoinoneApiService{
         @GET("/ticker/")
         Call<TickerResponse> tickerResponseCall();
