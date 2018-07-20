@@ -1,13 +1,15 @@
 package com.kestrel9.android.mystudy.main.ui;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.kestrel9.android.mystudy.BaseAdapter;
+import com.kestrel9.android.mystudy.baseUtil.BaseAdapter;
 import com.kestrel9.android.mystudy.R;
+import com.kestrel9.android.mystudy.baseUtil.BaseViewHolder;
+import com.kestrel9.android.mystudy.databinding.RowAskBinding;
 import com.kestrel9.android.mystudy.network.response.OrderbookResponse;
 
 /**
@@ -17,27 +19,28 @@ import com.kestrel9.android.mystudy.network.response.OrderbookResponse;
  * <p>
  * Description:
  */
-public class AskListAdapter extends BaseAdapter<OrderbookResponse.Ask> {
+public class AskListAdapter extends BaseAdapter<OrderbookResponse.Ask, AskListAdapter.ViewHolder> {
 
     public AskListAdapter(Context context) {
         super(context);
     }
 
     @Override
-    protected View createView(Context context, ViewGroup viewGroup, int viewType) {
-        return LayoutInflater.from(context).inflate(R.layout.row_ask, viewGroup, false);
+    public ViewHolder createHolder(Context context, ViewGroup viewGroup, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_ask, viewGroup, false));
     }
 
     @Override
-    protected void bindView(OrderbookResponse.Ask item, BaseAdapter.ViewHolder viewHolder) {
-        if (item != null){
-            TextView tv_price = (TextView) viewHolder.getView(R.id.tv_price);
-            TextView tv_qty = (TextView) viewHolder.getView(R.id.tv_qty);
+    public void onBindHolder(ViewHolder holder, int position) {
+        holder.binding.tvQty.setText(items.get(position).qty);
+        holder.binding.tvPrice.setText(items.get(position).price);
+    }
 
-            tv_price.setText(item.price);
-            tv_qty.setText(item.qty);
-
+    class ViewHolder extends BaseViewHolder<OrderbookResponse.Ask>{
+        RowAskBinding binding;
+        ViewHolder(View itemView) {
+            super(itemView);
+            binding = DataBindingUtil.bind(itemView);
         }
-
     }
 }

@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/tv_price"
+<layout>
+    <data>
+        <variable
+            name="order"
+            type="com.kestrel9.android.mystudy.network.response.TradesResponse.CompleteOrder" />
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/row_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:text="7,199,500"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_qty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="0.0014"
-        android:textColor="@color/black"
-        android:gravity="end"/>
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:text="7,199,500" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_qty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/black"
+            tools:text="0.0014" />
+
+    </LinearLayout>
+</layout>

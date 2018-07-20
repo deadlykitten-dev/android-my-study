@@ -2,6 +2,9 @@ package com.kestrel9.android.mystudy;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
